@@ -1,11 +1,29 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const NoteSchema = new Schema({
-  title: String,
-  body: String,
+const UserSchema = new Schema({
+  // CODE HERE
+  username: {
+    type: String,
+    trim: true,
+    required: 'String is Required',
+  },
+  password: {
+    type: String,
+    trim: true,
+    required: 'String is Required',
+    min: [6, 'Too few characters'],
+  },
+  email: {
+    type: String,
+    match: [/.+@.+\..+/, 'Please enter a valid e-mail address'],
+  },
+  userCreated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const Note = mongoose.model('Note', NoteSchema);
+const Fitness = mongoose.model('Fitness', UserSchema);
 
-module.exports = Note;
+module.exports = Fitness;
