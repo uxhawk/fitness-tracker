@@ -1,17 +1,17 @@
-
-// *****************************************************************************
-// api-routes.js - this file offers a set of routes for
-// sending users various mongodb data pages
-// *****************************************************************************
-
 // Dependencies
 // =============================================================
+const db = require('../models');
 // Routes
 // =============================================================
 module.exports = function(app) {
-  // index route loads index.html
   app.get('/exercise', (req, res) => {
-
+    db.Workout.find({})
+        .then((data) => {
+          res.json(data);
+        })
+        .catch((err) => {
+          res.json(err);
+        });
   });
 
   app.post('/exercise', (req, res) => {

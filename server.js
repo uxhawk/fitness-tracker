@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const PORT = process.env.PORT || 8080;
 
 // eslint-disable-next-line no-unused-vars
-const db = require('./models');
 
 const app = express();
 
