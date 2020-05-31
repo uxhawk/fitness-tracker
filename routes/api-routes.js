@@ -50,11 +50,13 @@ module.exports = function(app) {
         _id: mongojs.ObjectID(req.params.id),
       },
       {
-        $set: {
-          type: req.body.type,
-          name: req.body.name,
-          distance: req.body.distance,
-          duration: req.body.duration,
+        $push: {
+          exercises: {
+            type: req.body.type,
+            name: req.body.name,
+            distance: req.body.distance,
+            duration: req.body.duration,
+          },
         },
       },
       (err, data)=> {
@@ -64,8 +66,28 @@ module.exports = function(app) {
           res.send(data);
         }
       });
-    } else {
-
+    } else if (req.body.type === 'resistance') {
+      db.Workout.update({
+        // eslint-disable-next-line new-cap
+        _id: mongojs.ObjectID(req.params.id),
+      },
+      {
+        $push: {
+          exercises: {
+            type: req.body.type,
+            name: req.body.name,
+            distance: req.body.distance,
+            duration: req.body.duration,
+          },
+        },
+      },
+      (err, data)=> {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(data);
+        }
+      });
     }
   });
 };
