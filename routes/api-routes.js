@@ -97,4 +97,25 @@ module.exports = function(app) {
       });
     }
   });
+
+  // update a a specific workout total duration
+  app.put('/api/workouts/duration/:id', (req, res) => {
+    console.log(req.body.totalDuration);
+    db.Workout.update({
+      // eslint-disable-next-line new-cap
+      _id: mongojs.ObjectID(req.params.id),
+    },
+    {
+      $set: {
+        totalDuration: req.body.totalDuration,
+      },
+    },
+    (err, data)=> {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(data);
+      }
+    });
+  });
 };

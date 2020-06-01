@@ -1,13 +1,24 @@
+let lastWorkout;
 /**
  * this function is what you run when you first start working out
  */
 async function initWorkout() {
-  const lastWorkout = await API.getLastWorkout();
+  lastWorkout = await API.getLastWorkout();
   console.log('Last workout:', lastWorkout);
   if (lastWorkout) {
     document
         .querySelector('a[href=\'/exercise?\']')
         .setAttribute('href', `/exercise?id=${lastWorkout._id}`);
+
+    lastWorkout.totalDuration = lastWorkout.totalDuration.reduce(
+        (a, b) => a + b, 0);
+
+    const workoutUpdate = {
+      totalDuration: lastWorkout.totalDuration,
+      _id: lastWorkout._id,
+    };
+
+    API.updateDuration(workoutUpdate);
 
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
@@ -63,7 +74,7 @@ function formatDate(date) {
  */
 function renderWorkoutSummary(summary) {
   const container = document.querySelector('.workout-stats');
-  summary.totalDuration = summary.totalDuration.reduce((a, b) => a + b, 0);
+  // summary.totalDuration = summary.totalDuration.reduce((a, b) => a + b, 0);
 
   const workoutKeyMap = {
     date: 'Date',
