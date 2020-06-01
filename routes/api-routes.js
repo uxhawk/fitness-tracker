@@ -1,6 +1,8 @@
 // Dependencies
 // =============================================================
 const db = require('../models');
+const Resistance = require('../models/Resistance');
+const Cardio = require('../models/Cardio');
 const mongojs = require('mongojs');
 // Routes
 // =============================================================
@@ -45,18 +47,15 @@ module.exports = function(app) {
   // update a a specific workout
   app.put('/api/workouts/:id', (req, res) => {
     if (req.body.type === 'cardio') {
+      const cardio = new Cardio(req.body);
       db.Workout.update({
         // eslint-disable-next-line new-cap
         _id: mongojs.ObjectID(req.params.id),
       },
       {
         $push: {
-          exercises: {
-            type: req.body.type,
-            name: req.body.name,
-            distance: req.body.distance,
-            duration: req.body.duration,
-          },
+          exercises: [cardio],
+          totalDuration: cardio.duration,
         },
       },
       (err, data)=> {
@@ -67,18 +66,16 @@ module.exports = function(app) {
         }
       });
     } else if (req.body.type === 'resistance') {
+      const resistance = new Resistance(req.body);
+      console.log(resistance);
       db.Workout.update({
         // eslint-disable-next-line new-cap
         _id: mongojs.ObjectID(req.params.id),
       },
       {
         $push: {
-          exercises: {
-            type: req.body.type,
-            name: req.body.name,
-            distance: req.body.distance,
-            duration: req.body.duration,
-          },
+          exercises: [resistance],
+          totalDuration: resistance.duration,
         },
       },
       (err, data)=> {

@@ -7,9 +7,10 @@ const WorkoutSchema = new Schema({
     default: Date.now,
   },
   exercises: [],
+  totalDuration: [],
 });
 
-WorkoutSchema.methods.totalDuration = function() {
+WorkoutSchema.methods.calcTotalDuration = function() {
   let sumDuration;
   const activities = this.exercises;
 

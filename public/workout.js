@@ -63,6 +63,9 @@ function formatDate(date) {
  */
 function renderWorkoutSummary(summary) {
   const container = document.querySelector('.workout-stats');
+  console.log(summary);
+  summary.totalDuration = summary.totalDuration.reduce((a, b) => a + b, 0);
+
 
   const workoutKeyMap = {
     date: 'Date',
