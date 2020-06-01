@@ -18,6 +18,16 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/api/workouts/range', (req, res) => {
+    db.Workout.find({}, (err, data)=> {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(data);
+      }
+    });
+  });
+
   // get an individual workout
   app.get('/api/workouts/:id', (req, res) => {
     db.Workout.findOne({
