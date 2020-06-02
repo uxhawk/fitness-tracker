@@ -1,5 +1,5 @@
 # Fitness Tracker
-![Travis (.org)](https://img.shields.io/travis/uxhawk/fitness-tracker?style=for-the-badge)
+![Travis (.com)](https://img.shields.io/travis/com/uxhawk/fitness-tracker?style=for-the-badge)
 
 This app is for users trying to get in shape and track progress towards their fitness goals.
 
